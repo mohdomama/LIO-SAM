@@ -7,7 +7,7 @@ lio_sam:
   gpsTopic: "odometry/gpsz"                   # GPS odometry topic from navsat, see module_navsat.launch file
 
   # Frames
-  lidarFrame: "base_link"
+  lidarFrame: "velodyne"
   baselinkFrame: "base_link"
   odometryFrame: "odom"
   mapFrame: "map"
@@ -24,10 +24,14 @@ lio_sam:
 
   # Sensor Settings
   sensor: velodyne                            # lidar sensor type, either 'velodyne' or 'ouster'
-  N_SCAN: 16                                  # number of lidar channel (i.e., 16, 32, 64, 128)
+  # change
+  # N_SCAN: 16                                  # number of lidar channel (i.e., 16, 32, 64, 128)
+  N_SCAN: 64                                  # number of lidar channel (i.e., 16, 32, 64, 128)
   Horizon_SCAN: 1800                          # lidar horizontal resolution (Velodyne:1800, Ouster:512,1024,2048)
-  downsampleRate: 1                           # default: 1. Downsample your data if too many points. i.e., 16 = 64 / 4, 16 = 16 / 1
-  lidarMinRange: 1.0                          # default: 1.0, minimum lidar range to be used
+  #  change
+  # downsampleRate: 1                           # default: 1. Downsample your data if too many points. i.e., 16 = 64 / 4, 16 = 16 / 1
+  downsampleRate: 4                           # default: 1. Downsample your data if too many points. i.e., 16 = 64 / 4, 16 = 16 / 1
+  lidarMinRange: 3.0                          # default: 1.0, minimum lidar range to be used
   lidarMaxRange: 1000.0                       # default: 1000.0, maximum lidar range to be used
 
   # IMU Settings
@@ -39,13 +43,24 @@ lio_sam:
   imuRPYWeight: 0.01
 
   # Extrinsics (lidar -> IMU)
-  extrinsicTrans: [0.0, 0.0, 0.0]
-  extrinsicRot: [-1, 0, 0,
-                  0, 1, 0,
-                  0, 0, -1]
-  extrinsicRPY: [0,  1, 0,
-                 -1, 0, 0,
-                  0, 0, 1]
+
+  # Change
+  # extrinsicTrans: [0.0, 0.0, 0.0]
+  # extrinsicRot: [-1, 0, 0,
+  #                 0, 1, 0,
+  #                 0, 0, -1]
+  # extrinsicRPY: [0,  1, 0,
+  #                -1, 0, 0,
+  #                 0, 0, 1]
+  extrinsicTrans: [-8.086759e-01, 3.195559e-01, -7.997231e-01]
+  extrinsicRot: [9.999976e-01, 7.553071e-04, -2.035826e-03, 
+                -7.854027e-04, 9.998898e-01, -1.482298e-02, 
+                 2.024406e-03, 1.482454e-02, 9.998881e-01]
+  extrinsicRPY: [9.999976e-01, 7.553071e-04, -2.035826e-03,
+                -7.854027e-04, 9.998898e-01, -1.482298e-02,
+                2.024406e-03, 1.482454e-02, 9.998881e-01]
+
+
   # extrinsicRot: [1, 0, 0,
   #                 0, 1, 0,
   #                 0, 0, 1]
@@ -65,7 +80,9 @@ lio_sam:
   mappingSurfLeafSize: 0.4                      # default: 0.4 - outdoor, 0.2 - indoor
 
   # robot motion constraint (in case you are using a 2D robot)
+  # change
   z_tollerance: 1000                            # meters
+  # z_tollerance: 0                            # meters
   rotation_tollerance: 1000                     # radians
 
   # CPU Params
@@ -79,7 +96,9 @@ lio_sam:
   surroundingKeyframeSearchRadius: 50.0         # meters, within n meters scan-to-map optimization (when loop closure disabled)
 
   # Loop closure
-  loopClosureEnableFlag: true
+  # change
+  # loopClosureEnableFlag: true
+  loopClosureEnableFlag: false
   loopClosureFrequency: 1.0                     # Hz, regulate loop closure constraint add frequency
   surroundingKeyframeSize: 50                   # submap size (when loop closure enabled)
   historyKeyframeSearchRadius: 15.0             # meters, key frame that is within n meters from current pose will be considerd for loop closure
