@@ -15,14 +15,14 @@
   <joint name="imu_joint" type="fixed">
     <parent link="chassis_link" />
     <child link="imu_link" />
-    <origin xyz="0 0 0" rpy="0 0 0" />
+    <origin xyz="-1.405 0.32 0.93" rpy="0 0 0" />
   </joint>
 
   <link name="velodyne"> </link>
   <joint name="velodyne_joint" type="fixed">
-    <parent link="chassis_link" />
+    <parent link="imu_link" />
     <child link="velodyne" />
-    <origin xyz="0 0 0" rpy="0 0 0" />
+    <origin xyz="0.810 -0.307 0.802" rpy="0 0 0" />
   </joint>
 
   <link name="navsat_link"> </link>
